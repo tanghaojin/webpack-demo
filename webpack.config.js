@@ -1,15 +1,31 @@
 import path from "path";
 import { fileURLToPath } from "url";
+import HtmlWebpackPlugin from "html-webpack-plugin";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 export default {
-  entry: "./src/index.js",
-  output: {
-    filename: "bundle.js",
-    path: path.resolve(__dirname, "dist"),
+  entry: {
+    index: "./src/index.js",
+    print: "./src/js/printMe.js",
   },
+  output: {
+    filename: "[name].bundle.js",
+    path: path.resolve(__dirname, "dist"),
+    clean: true, // clean dist folder
+  },
+  /**
+   * for devlopment we can use 'eval','eval-source-map','eval-cheep-source-map'
+   * for production we can use 'source-map' 'hidden-source-map' 'nosources-source-map'
+   */
+  devtool: "eval",
+  plugins: [
+    // generate the index.html automatic and attach js file to head label;
+    new HtmlWebpackPlugin({
+      title: "Output Management",
+    }),
+  ],
   module: {
     rules: [
       {
