@@ -1,0 +1,10 @@
+@font-face {
+  font-family: "openSans";
+  src: url("./OpenSans-VariableFont_wdth\,wght.ttf") format(truetype);
+}
+
+div {
+  color: red;
+  font-family: "openSans";
+  font-style: normal;
+}
