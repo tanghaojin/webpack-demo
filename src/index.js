@@ -1,7 +1,7 @@
 import "./style.css";
 import logo from "./vite.svg";
 import pkg from "../package.json"; // cant not import {name} from
-import printMe from "./js/printMe.js";
+
 function component() {
   const element = document.createElement("div");
   const btn = document.createElement("button");
@@ -15,10 +15,22 @@ function component() {
   element.appendChild(img);
 
   btn.innerHTML = "Click me and check the console!";
-  btn.onclick = printMe;
-  element.appendChild(btn);
+  import(
+    /*webpackChunkName: "printMe-async", webpackPreload: true */ "./js/printMe.js"
+  ).then(({ default: printMe }) => {
+    btn.onclick = printMe;
+    element.appendChild(btn);
+  });
 
   console.log("aaatt112211");
+
+  import(
+    /*webpackChunkName: "lodash-async", webpackPrefetch: true */ "lodash-es"
+  ).then(({ join }) => {
+    const p = document.createElement("p");
+    p.innerHTML = join(["webpack", "test"]);
+    element.appendChild(p);
+  });
 
   return element;
 }
