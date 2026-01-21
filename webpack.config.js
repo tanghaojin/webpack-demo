@@ -6,11 +6,12 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 export default {
   mode: "development",
+  stats: "normal",
   entry: {
     index: "./src/index.js",
   },
   output: {
-    filename: "[name].bundle.js",
+    filename: "[name].[contenthash].bundle.js",
     path: path.resolve(__dirname, "dist"),
     clean: true, // clean dist folder
   },
@@ -25,7 +26,7 @@ export default {
   plugins: [
     // generate the index.html automatic and attach js file to head label;
     new HtmlWebpackPlugin({
-      title: "Output Management",
+      title: "Caching",
     }),
   ],
   module: {
@@ -47,8 +48,16 @@ export default {
     ],
   },
   optimization: {
+    runtimeChunk: "single",
+    moduleIds: "deterministic",
     splitChunks: {
-      chunks: "all",
+      cacheGroups: {
+        vendor: {
+          test: /[\\/]node_modules[\\/]/,
+          name: "vendors",
+          chunks: "all",
+        },
+      },
     },
   },
 };
