@@ -18,6 +18,8 @@ function component() {
   btn.onclick = printMe;
   element.appendChild(btn);
 
+  console.log("aaatt112211");
+
   return element;
 }
 
