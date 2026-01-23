@@ -11,7 +11,7 @@ export default (env) => {
     mode: "development",
     stats: "normal",
     entry: {
-      index: "./src/index.js",
+      other: "./src/js/other.js",
     },
     output: {
       filename: "[name].[contenthash].bundle.js",
@@ -53,16 +53,7 @@ export default (env) => {
     },
     optimization: {
       runtimeChunk: "single",
-      moduleIds: "deterministic",
-      splitChunks: {
-        cacheGroups: {
-          vendor: {
-            test: /[\\/]node_modules[\\/]/,
-            name: "vendors",
-            chunks: "all",
-          },
-        },
-      },
+      usedExports: true, // tree shaking
     },
   };
 };
