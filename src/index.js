@@ -16,16 +16,32 @@ function component() {
   img.src = logo;
   element.appendChild(img);
 
-  btn.innerHTML = "Click me and check the console!";
+  btn.innerHTML = "Click me and check the consoleaa1!";
   btn.onclick = printMe;
   element.appendChild(btn);
 
   calc("aaatt112211");
   const p = document.createElement("p");
-  p.innerHTML = _.join(["webpack", "test"]);
+  p.innerHTML = _.join(["webpa1k111", "te11s11111"]);
   element.appendChild(p);
 
   return element;
 }
 
 document.body.appendChild(component());
+
+if (import.meta.webpackHot) {
+  import.meta.webpackHot.accept("./js/printMe.js", function () {
+    console.log(`Accepting1b the updated printMe module!--`);
+    printMe();
+  });
+  import.meta.webpackHot.accept((err) => {
+    console.log("aaa");
+  });
+  import.meta.webpackHot.dispose((data) => {
+    data.value = import.meta.webpackHot.data
+      ? import.meta.webpackHot.data.value + 1
+      : 1;
+    console.log("data: ", data);
+  });
+}
